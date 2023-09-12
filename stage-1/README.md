@@ -1,11 +1,11 @@
 # Stage 1
 
-:dart: Objective
+### Objective
 
 Create and host an endpoint.
 The endpoint takes two GET request query parameters and return specific information in JSON format.
 
-:spiral_note_pad: Requirements
+### Requirements
 The information required includes:
 Slack name
 Current day of the week
@@ -14,6 +14,8 @@ Track
 The GitHub URL of the file being run
 The GitHub URL of the full source code.
 A Status Code of Success
+
+### Sample Response
 
 ```
 {
