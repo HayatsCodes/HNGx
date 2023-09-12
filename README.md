@@ -1,2 +1,2 @@
 # HNGx
-A fast-paced virtual and remote internship that enables interns to learn and improve their skills by working on real-world projects | Backend  Track.
+A fast-paced 10-stages virtual and remote internship that enables interns to learn and improve their skills by working on real-world projects | Backend  Track.
