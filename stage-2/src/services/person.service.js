@@ -1,8 +1,11 @@
 const personModel = require("../models/person.model");
+const {isNameExist, createNewPerson} = require('./person.utils');
+
 
 async function addPerson(name) {
-  const isNameExist = (await personModel.findOne({ name })) !== null;
-  if (isNameExist) {
+  // const isNameExist = (await personModel.findOne({ name })) !== null;
+  
+  if ((await isNameExist(name))) {
     throw new Error('Name already exist');
   }
 
@@ -10,7 +13,7 @@ async function addPerson(name) {
     .findOne({})
     .sort({ _id: -1 })
     .select("_id");
-  const lastId = lastDocument ? lastDocument._id : null;
+  let lastId = lastDocument ? lastDocument._id : null;
   if (lastId) {
     lastId++;
     await createNewPerson(lastId, name);
@@ -26,20 +29,21 @@ async function getPerson(userId) {
 }
 
 async function updatePerson(userId, newData) {
-  return await personModel.findByIdAndUpdate(userId, newData, { new: true });
+  const name = newData.name;
+  if ((await isNameExist(name))) {
+    throw new Error('Name already exist');
+  }
+  return await personModel.findByIdAndUpdate(userId, newData, { new: true }).select('-__v');
 }
 
 async function deletePerson(userId) {
-  return await personModel.findByIdAndDelete(userId);
+  return await personModel.findByIdAndDelete(userId).select('-__v');
 }
 
-async function createNewPerson(id, name) {
-  const person = new personModel({
-    _id: id,
-    name,
-  });
-  await person.save();
-}
+// OMIT __V from update and delete
+
+
+
 
 module.exports = {
   addPerson,
